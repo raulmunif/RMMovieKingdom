@@ -1,18 +1,10 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import './App.css'
 import SearchIcon from './search.svg'
 
 const API_URL = 'http://www.omdbapi.com?apikey=ec73e761'
 
-const movie1 = {
-    "Title": "Batman Begins",
-    "Year": "2005",
-    "imdbID": "tt0372784",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
-}
 
 const App = () => {
 
@@ -39,12 +31,16 @@ const App = () => {
                     placeholder="Search for movies"
                     value={searchTerm}
                     onChange={(event) => setSearchTerm(event.target.value)}
+                    onKeyDown={(event) => {
+                        if (event.key === 'Enter') {
+                            searchMovies(searchTerm);
+                        }
+                    }}
                 />
                 <img
                     src={SearchIcon}
                     alt="search"
                     onClick={() => searchMovies(searchTerm)}
-                    tabIndex={0}
                 />
             </div>
 
@@ -64,7 +60,7 @@ const App = () => {
                     )
             }
         </div>
-        );
+    );
 }
 
 export default App
